@@ -1,0 +1,64 @@
+SELECT * FROM Books;
+
+SELECT title, price FROM Books;
+
+SELECT * FROM Customers
+WHERE city = 'Mumbai';
+
+SELECT * FROM Genres;
+
+SELECT title, stock_quantity
+FROM Books
+WHERE stock_quantity > 40;
+
+SELECT Customers.name, Orders.order_id, Orders.order_date
+FROM Customers
+INNER JOIN Orders
+ON Customers.customer_id = Orders.customer_id;
+
+SELECT Books.title, Authors.author_name
+FROM Books
+INNER JOIN Authors
+ON Books.author_id = Authors.author_id;
+
+SELECT Orders.order_id, Customers.name, Books.title
+FROM Orders
+INNER JOIN Customers
+ON Orders.customer_id = Customers.customer_id
+INNER JOIN Order_Details
+ON Orders.order_id = Order_Details.order_id
+INNER JOIN Books
+ON Order_Details.book_id = Books.book_id;
+
+SELECT title, price
+FROM Books
+WHERE price = (SELECT MAX(price) FROM Books);
+
+SELECT Customers.name, SUM(Order_Details.quantity_ordered) AS total_books
+FROM Customers
+INNER JOIN Orders
+ON Customers.customer_id = Orders.customer_id
+INNER JOIN Order_Details
+ON Orders.order_id = Order_Details.order_id
+GROUP BY Customers.name;
+
+SELECT Genres.genre_name, COUNT(Books.book_id) AS total_books
+FROM Genres
+INNER JOIN Books
+ON Genres.genre_id = Books.genre_id
+GROUP BY Genres.genre_name;
+
+SELECT Authors.author_name, AVG(Books.price) AS average_price
+FROM Authors
+INNER JOIN Books
+ON Authors.author_id = Books.author_id
+GROUP BY Authors.author_name;
+
+SELECT Customers.name, SUM(Order_Details.quantity_ordered * Order_Details.price_at_time_of_order) AS total_spent
+FROM Customers
+INNER JOIN Orders
+ON Customers.customer_id = Orders.customer_id
+INNER JOIN Order_Details
+ON Orders.order_id = Order_Details.order_id
+GROUP BY Customers.name
+ORDER BY total_spent DESC;
