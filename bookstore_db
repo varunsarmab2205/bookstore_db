@@ -116,7 +116,7 @@ SELECT * FROM Genres;
 SELECT * FROM Customers;
 SELECT * FROM Books;
 SELECT * FROM Orders;
-SELECT * FROM Order_Details;   write queries 12 for this db 
+SELECT * FROM Order_Details;   write queries 12 for this db  
 4-easy
 4-intermediate
 4-moderate hard
